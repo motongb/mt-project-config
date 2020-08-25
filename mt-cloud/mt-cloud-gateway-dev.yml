@@ -1,7 +1,7 @@
 spring:
   zipkin:
     base-url: http://192.168.122.10:9411
-    enabled: false
+    enabled: true
   sleuth:
     web:
       enabled: true
@@ -21,27 +21,19 @@ spring:
             - Path=/auth/**
           filters:
             - StripPrefix=1
-            - name: Hystrix
-              args:
-                name: default
-                fallbackUri: 'forward:/defaultFallback'
-            - name: RequestRateLimiter
-              args:
-                key-resolver: '#{@hostKeyResolver}'
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
         - id: middle
           uri: lb://mt-cloud-middle
           predicates:
             - Path=/middle/**
           filters:
             - StripPrefix=1
-            - name: Hystrix
-              args:
-                name: default
-                fallbackUri: 'forward:/defaultFallback'
-            - name: RequestRateLimiter
-              args:
-                key-resolver: '#{@hostKeyResolver}'
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
+      default-filters:
+        - name: Hystrix
+          args:
+            name: default
+            fallbackUri: 'forward:/defaultFallback'
+        - name: RequestRateLimiter
+          args:
+            key-resolver: '#{@hostKeyResolver}'
+            redis-rate-limiter.replenishRate: 10
+            redis-rate-limiter.burstCapacity: 20

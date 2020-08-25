@@ -37,10 +37,10 @@ logging:
 
 #分布式事务配置
 seata:
-  tx-service-group: base_group #事务组
+  tx-service-group: auth_group #事务组
   service:
     vgroup-mapping:
       base_group: seata-server #服务名
     grouplist:
       seata-server: 192.168.120.128:18090
-  enabled: false
+  enabled: true

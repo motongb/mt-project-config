@@ -12,7 +12,7 @@ spring:
     properties.mail.display.sendname: Motb Account Register
   zipkin:
     base-url: http://192.168.122.10:9411
-    enabled: false
+    enabled: true
   sleuth:
     web:
       enabled: true
@@ -34,6 +34,10 @@ minio:
   endpoint: http://192.168.120.128:9000
   accessKey: useraccess
   secretKey: mysecret
+
+#系统自定义配置
+system:
+  enable-token-auth: true
 
 logging:
   level:
